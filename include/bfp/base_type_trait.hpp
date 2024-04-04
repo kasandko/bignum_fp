@@ -81,6 +81,11 @@ struct base_helper_methods
         assert(false, "Method is not implemented.");
         return {};
     }
+
+    static void swap(base_type & left, base_type & right)
+    {
+        assert(false, "Method is not implemented.");
+    }
 };
 
 template <typename TBase, LenType Fractional>
