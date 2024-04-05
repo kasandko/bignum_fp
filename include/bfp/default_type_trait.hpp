@@ -15,7 +15,7 @@ struct invalid_type
 Trait similar std::numeric_limits and compatible with it.
 */
 template <typename TBase>
-struct base_numeric_limits
+struct default_numeric_limits
 {
     
 };
@@ -24,17 +24,17 @@ struct base_numeric_limits
 Integral type promoter for multiplication and division.
 */
 template <typename TBase>
-struct base_integral_promoter
+struct default_integral_promoter
 {
     using type = invalid_type;
-    using limits = base_numeric_limits<type>;
+    using limits = default_numeric_limits<type>;
 };
 
 /*
 Different helper methods with base type.
 */
 template <typename TBase, LenType Fractional>
-struct base_helper_methods
+struct default_helper_methods
 {
     using base_type = TBase;
     static const LenType fractional_bit_count = Fractional;
@@ -82,6 +82,24 @@ struct base_helper_methods
         return {};
     }
 
+    static float to_float(const base_type & v)
+    {
+        assert(false, "Method is not implemented.");
+        return {};
+    }
+
+    static double to_double(const base_type & v)
+    {
+        assert(false, "Method is not implemented.");
+        return {};
+    }
+
+    static long double to_long_double(const base_type & v)
+    {
+        assert(false, "Method is not implemented.");
+        return {};
+    }
+
     static void swap(base_type & left, base_type & right)
     {
         assert(false, "Method is not implemented.");
@@ -89,14 +107,14 @@ struct base_helper_methods
 };
 
 template <typename TBase, LenType Fractional>
-struct base_type_trait
+struct default_type_trait
 {
     using base_type = TBase;
 
-    using limits = base_numeric_limits<base_type>;
-    using methods = base_helper_methods<base_type, Fractional>;
-    using promotion_type = typename base_integral_promoter<base_type>::type;
-    using promotion_limits = typename base_integral_promoter<base_type>::limits;
+    using limits = default_numeric_limits<base_type>;
+    using methods = default_helper_methods<base_type, Fractional>;
+    using promotion_type = typename default_integral_promoter<base_type>::type;
+    using promotion_limits = typename default_integral_promoter<base_type>::limits;
 };
 
 } // namespace bfp
