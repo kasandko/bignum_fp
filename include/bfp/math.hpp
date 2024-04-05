@@ -1,7 +1,360 @@
 #ifndef _BFP_MATH_H_
 #define _BFP_MATH_H_
 
+#include <bfp/fp.hpp>
+
 namespace bfp {
+
+///// Basic operations /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> fabs(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> fmod(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> remainder(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> remquo(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y,
+    int * quo
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> fma(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y,
+    const fp<TBase, Fractional, TBaseTypeTrait> & z
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> fmax(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> fmin(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> fdim(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+///// Linear interpolation /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> lerp(
+    const fp<TBase, Fractional, TBaseTypeTrait> & a,
+    const fp<TBase, Fractional, TBaseTypeTrait> & b,
+    const fp<TBase, Fractional, TBaseTypeTrait> & t
+)
+{
+
+}
+
+///// Exponential functions /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> exp(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> exp2(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> expml(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> log(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> log10(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> loglp(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+///// Power functions /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> pow(
+    const fp<TBase, Fractional, TBaseTypeTrait> & base,
+    const fp<TBase, Fractional, TBaseTypeTrait> & exp
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> pow(
+    const fp<TBase, Fractional, TBaseTypeTrait> & base,
+    int exp
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> sqrt(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> cbrt(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> hypot(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+///// Trigonometric functions /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> sin(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> cos(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> tan(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> asin(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> acos(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> atan(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> atan2(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+///// Hyperbolic functions /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> sinh(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> cosh(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> tanh(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> asinh(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> acosh(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> atanh(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+///// Error and gamma functions /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> erf(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> erfc(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> tgamma(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> lgamma(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+///// Nearest integer floating-point operations /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> ceil(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> floor(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> trunc(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> round(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+long lround(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+long long llround(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> nearbyint(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> rint(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+long lrint(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+long long llrint(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+///// Floating-point manipulation functions  /////
+
+// 
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> modf(
+    const fp<TBase, Fractional, TBaseTypeTrait> & num,
+    fp<TBase, Fractional, TBaseTypeTrait> * iptr
+)
+{
+
+}
+
 
 } // namespace bfp
 

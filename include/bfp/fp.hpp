@@ -1,6 +1,7 @@
 #ifndef _BFP_FP_H_
 #define _BFP_FP_H_
 
+#include <bfp/type_defs.hpp>
 #include <bfp/default_type_trait.hpp>
 
 namespace bfp {
