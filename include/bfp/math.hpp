@@ -169,6 +169,16 @@ fp<TBase, Fractional, TBaseTypeTrait> hypot(
 
 }
 
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> hypot(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y,
+    const fp<TBase, Fractional, TBaseTypeTrait> & z
+)
+{
+
+}
+
 ///// Trigonometric functions /////
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -342,9 +352,25 @@ long long llrint(const fp<TBase, Fractional, TBaseTypeTrait> & num)
 
 }
 
-///// Floating-point manipulation functions  /////
+///// Floating-point manipulation functions /////
 
-// 
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> frexp(
+    const fp<TBase, Fractional, TBaseTypeTrait> & base,
+    int * exp
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> ldexp(
+    const fp<TBase, Fractional, TBaseTypeTrait> & base,
+    int exp
+)
+{
+
+}
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
 fp<TBase, Fractional, TBaseTypeTrait> modf(
@@ -355,6 +381,145 @@ fp<TBase, Fractional, TBaseTypeTrait> modf(
 
 }
 
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> scalbn(
+    const fp<TBase, Fractional, TBaseTypeTrait> & base,
+    int exp
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> scalbn(
+    const fp<TBase, Fractional, TBaseTypeTrait> & base,
+    long exp
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+int ilogb(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> logb(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> nextafter(
+    const fp<TBase, Fractional, TBaseTypeTrait> & from,
+    const fp<TBase, Fractional, TBaseTypeTrait> & to
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+fp<TBase, Fractional, TBaseTypeTrait> copysign(
+    const fp<TBase, Fractional, TBaseTypeTrait> & mag,
+    const fp<TBase, Fractional, TBaseTypeTrait> & sgn
+)
+{
+
+}
+
+///// Classification and comparison /////
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+int fpclassify(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isfinite(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isinf(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isnan(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isnormal(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool signbit(const fp<TBase, Fractional, TBaseTypeTrait> & num)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isgreater(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isgreaterequal(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isless(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool islessequal(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool islessgreater(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
+
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+bool isunordered(
+    const fp<TBase, Fractional, TBaseTypeTrait> & x,
+    const fp<TBase, Fractional, TBaseTypeTrait> & y
+)
+{
+
+}
 
 } // namespace bfp
 
