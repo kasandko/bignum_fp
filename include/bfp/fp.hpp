@@ -1,5 +1,5 @@
-#ifndef _BFP_FP_H_
-#define _BFP_FP_H_
+#ifndef _BFP_FP_HPP_
+#define _BFP_FP_HPP_
 
 #include <bfp/type_defs.hpp>
 #include <bfp/default_type_trait.hpp>
@@ -352,4 +352,4 @@ private:
 
 } // namespace bfp
 
-#endif // _BFP_FP_H_
+#endif // _BFP_FP_HPP_

@@ -1,5 +1,5 @@
-#ifndef _BFP_BASE_TYPE_TRAIT_H_
-#define _BFP_BASE_TYPE_TRAIT_H_
+#ifndef _BFP_BASE_TYPE_TRAIT_HPP_
+#define _BFP_BASE_TYPE_TRAIT_HPP_
 
 #include <string>
 #include <bfp/type_defs.hpp>
@@ -119,4 +119,4 @@ struct default_type_trait
 
 } // namespace bfp
 
-#endif // _BFP_BASE_TYPE_TRAIT_H_
+#endif // _BFP_BASE_TYPE_TRAIT_HPP_

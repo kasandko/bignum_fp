@@ -1,5 +1,5 @@
-#ifndef _BFP_TYPE_DEFS_H_
-#define _BFP_TYPE_DEFS_H_
+#ifndef _BFP_TYPE_DEFS_HPP_
+#define _BFP_TYPE_DEFS_HPP_
 
 #include <ex_type_traits/op_traits.h>
 #include <type_traits>
@@ -100,8 +100,11 @@ struct base_type_asserts
 
     // #assert:23.
     static_assert(exttr::op::is_b_bit_conjunctionable_v<base_type, base_type, base_type &>, "Base type can not support &.");
+
+    // #assert:24.
+    static_assert(std::is_constructible_v<base_type, int &>, "Base type can not construct with int.");
 };
 
 } // namespace bfp
 
-#endif // _BFP_TYPE_DEFS_H_
+#endif // _BFP_TYPE_DEFS_HPP_

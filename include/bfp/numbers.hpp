@@ -1,5 +1,5 @@
-#ifndef _BFP_NUMBERS_H_
-#define _BFP_NUMBERS_H_
+#ifndef _BFP_NUMBERS_HPP_
+#define _BFP_NUMBERS_HPP_
 
 #include <bfp/fp.hpp>
 
@@ -12,6 +12,7 @@ public:
 
     using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
 
+    // TODO: Implementation.
     inline static const fp_type e;
     inline static const fp_type log2e;
     inline static const fp_type log10e;
@@ -30,4 +31,4 @@ public:
 
 } // namespace bfp
 
-#endif // _BFP_NUMBERS_H_
+#endif // _BFP_NUMBERS_HPP_

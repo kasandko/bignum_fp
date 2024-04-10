@@ -1,8 +1,9 @@
-#ifndef _BFP_LIMITS_H_
-#define _BFP_LIMITS_H_
+#ifndef _BFP_LIMITS_HPP_
+#define _BFP_LIMITS_HPP_
 
 namespace bfp {
 
+// TODO: Is it needed or not?
 #define RADIX
 #define DECIMAL_DIG
 #define MIN
@@ -21,4 +22,4 @@ namespace bfp {
 
 } // namespace bfp
 
-#endif // _BFP_LIMITS_H_
+#endif // _BFP_LIMITS_HPP_
