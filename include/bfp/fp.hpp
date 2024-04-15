@@ -3,6 +3,7 @@
 
 #include <bfp/type_defs.hpp>
 #include <bfp/default_type_trait.hpp>
+#include <bfp/internal/fp_number.hpp>
 
 namespace bfp {
 
@@ -125,6 +126,12 @@ public:
     {
         fp_type temp(rhs);
         _value = temp._value;
+        return *this;
+    }
+
+    fp_type & operator = (const internal::fp_number & fp_number)
+    {
+        _value = fp_number.make_base<TBase, fractional_bit_count>();
         return *this;
     }
 

@@ -1,7 +1,8 @@
 /**************************************************************************************************
  * @file
- * @brief This file implements numeric limits for `fp`. It contain class `numeric_limits`
- * which is compatible with `std::numeric_limits`.
+ * @brief This file implements numeric limits for `fp`.
+ * 
+ * It contain class `numeric_limits` which is compatible with `std::numeric_limits`.
  * 
  * @note If you want that this numeric limits class to be in std namespace you need
  * define `BFP_STD_NUMERIC_LIMITS`.
@@ -42,7 +43,7 @@ public:
     /// # Constants.
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    //! @brief Identifies types for which std::numeric_limits is specialized.
+    /// @brief Identifies types for which std::numeric_limits is specialized.
     static constexpr bool is_specialized = true;
 
     
@@ -53,10 +54,10 @@ public:
     static constexpr bool has_quiet_NaN = false;
     static constexpr bool has_signaling_NaN = false;
 
-    //! @brief Identifies the type that support subnormal values.
-    //!
-    //! The fixed point doesn't have denormalized values, because it is always
-    //! set to `denorm_absent`.
+    /// @brief Identifies the type that support subnormal values.
+    ///
+    /// The fixed point doesn't have denormalized values, because it is always
+    /// set to `denorm_absent`.
     static constexpr std::float_denorm_style has_denorm = std::denorm_absent;
     static constexpr bool has_denorm_loss = false;
     static constexpr std::float_round_style round_style; // TODO: std::round_toward_zero or not?
