@@ -129,11 +129,7 @@ public:
         return *this;
     }
 
-    fp_type & operator = (const internal::fp_number & fp_number)
-    {
-        _value = fp_number.make_base<TBase, fractional_bit_count>();
-        return *this;
-    }
+    fp_type & operator = (const internal::fp_number & fp_number);
 
     // #assert:8.
     bool operator < (const fp_type & rhs) const
@@ -358,5 +354,7 @@ private:
 };
 
 } // namespace bfp
+
+#include <bfp/internal/fp.inl>
 
 #endif // _BFP_FP_HPP_
