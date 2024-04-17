@@ -24,6 +24,15 @@ public:
     // The integer part bit count.
     static constexpr LenType integer_bit_count = sizeof (base_type) - fractional_bit_count;
 
+    // #assert:1.
+    static const base_type BASE_TYPE_ONE = base_type(1) << fractional_bit_count;
+
+    // #assert:2.
+    static const base_type FRACTIONAL_MASK = BASE_TYPE_ONE - 1;
+
+    // #assert:3.
+    static const base_type INTEGER_MASK = ~FRACTIONAL_MASK;
+
 private:
 
     using _dummy = base_type_asserts<base_type, base_type_trait::promotion_type>;
@@ -37,15 +46,6 @@ private:
         : _value(value)
     {
     }
-
-    // #assert:1.
-    static const base_type _BASE_TYPE_ONE = base_type(1) << fractional_bit_count;
-
-    // #assert:2.
-    static const base_type _FRACTIONAL_MASK = _BASE_TYPE_ONE - 1;
-
-    // #assert:3.
-    static const base_type _INTEGER_MASK = ~_FRACTIONAL_MASK;
 
 public:
 
@@ -175,7 +175,7 @@ public:
     // #assert:12.
     fp_type & operator ++ ()
     {
-        _value += _BASE_TYPE_ONE;
+        _value += BASE_TYPE_ONE;
         return *this;
     }
 
@@ -189,7 +189,7 @@ public:
     // #assert:13.
     fp_type & operator -- ()
     {
-        _value -= _BASE_TYPE_ONE;
+        _value -= BASE_TYPE_ONE;
         return *this;
     }
 
@@ -340,10 +340,15 @@ public:
     // #assert:23.
     base_type fract() const
     {
-        return _value & _INTEGER_MASK;
+        return _value & INTEGER_MASK;
     }
 
     base_type & data()
+    {
+        return _value;
+    }
+
+    const base_type & data() const
     {
         return _value;
     }

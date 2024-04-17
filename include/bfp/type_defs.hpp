@@ -24,6 +24,7 @@ inline constexpr bool is_convertible_to_integer_v =
     std::is_convertible_v<T, int64_t> &&
     std::is_convertible_v<T, uint64_t>;
 
+// TODO: Remove exttr and asserts block.
 // Asserts block. Places of use of the operator being checked are marked "#assert:N" where
     // N - number of static_assert.
 template <typename TBase, typename TPromotion>
@@ -103,6 +104,9 @@ struct base_type_asserts
 
     // #assert:24.
     static_assert(std::is_constructible_v<base_type, int &>, "Base type can not construct with int.");
+
+    // #assert:25.
+    // TODO: %
 };
 
 } // namespace bfp
