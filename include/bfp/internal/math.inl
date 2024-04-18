@@ -3,6 +3,8 @@
 
 #include <bfp/fp.hpp>
 #include <cmath>
+#include <cerrno>
+#include <cfenv>
 
 namespace bfp {
 
@@ -50,8 +52,21 @@ fp<TBase, Fractional, TBaseTypeTrait> remainder(
 {
     using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
 
+    if (y == internal::ZERO_VALUE<TBase, Fractional, TBaseTypeTrait>)
+    {
+        errno = EDOM;
+        std::feraiseexcept(FE_INVALID);
+        return 0;
+    }
+
     // TODO: Implementation.
     _BFP_NOT_IMPLEMENTED_ASSERT
+
+    /*
+    const fp_type p_rem = fmod(x, y);
+    const fp_type n_rem = y - p_rem;
+    return p_rem >= n_rem ? p_rem : -n_rem;
+    */
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -86,10 +101,7 @@ fp<TBase, Fractional, TBaseTypeTrait> fmax(
     const fp<TBase, Fractional, TBaseTypeTrait> & y
 )
 {
-    using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
-
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return x > y ? x : y;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -98,10 +110,7 @@ fp<TBase, Fractional, TBaseTypeTrait> fmin(
     const fp<TBase, Fractional, TBaseTypeTrait> & y
 )
 {
-    using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
-
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return x < y ? x : y;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -110,10 +119,7 @@ fp<TBase, Fractional, TBaseTypeTrait> fdim(
     const fp<TBase, Fractional, TBaseTypeTrait> & y
 )
 {
-    using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
-
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return x > y ? x - y : internal::ZERO_VALUE<TBase, Fractional, TBaseTypeTrait>;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -606,8 +612,8 @@ fp<TBase, Fractional, TBaseTypeTrait> copysign(
 {
     using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
 
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return sgn >= internal::ZERO_VALUE<TBase, Fractional, TBaseTypeTrait>
+        ? mag : -mag;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
