@@ -1,23 +1,23 @@
-#ifndef _BFP_FP_INL_
-#define _BFP_FP_INL_
+#ifndef _BFP_FIXED_INL_
+#define _BFP_FIXED_INL_
 
-#include <bfp/fp.hpp>
+#include <bfp/fixed.hpp>
 
 namespace bfp {
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
-fp<TBase, Fractional, TBaseTypeTrait> &
-    fp<TBase, Fractional, TBaseTypeTrait>::operator = (const internal::fp_number & fp_number)
+fixed<TBase, Fractional, TBaseTypeTrait> &
+    fixed<TBase, Fractional, TBaseTypeTrait>::operator = (const internal::fixed_number & fixed_number)
 {
-    using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
+    using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
-    const std::string src = fp_number._get_str();
-    const size_t point_pos = fp_number._point_pos();
+    const std::string src = fixed_number._get_str();
+    const size_t point_pos = fixed_number._point_pos();
 
-    const fp_type pow_factor(10);
+    const fixed_type pow_factor(10);
 
-    fp_type result(0);
-    fp_type power(1);
+    fixed_type result(0);
+    fixed_type power(1);
     for (size_t power_v = 0u; power_v < point_pos; ++power_v)
     {
         const size_t idx = point_pos - power_v - 1u;
@@ -26,7 +26,7 @@ fp<TBase, Fractional, TBaseTypeTrait> &
             power *= pow_factor;
 
         unsigned u_value = src[idx] - '0';
-        result += fp_type(u_value) * power;
+        result += fixed_type(u_value) * power;
     }
 
     power(1);
@@ -39,7 +39,7 @@ fp<TBase, Fractional, TBaseTypeTrait> &
             break;
 
         unsigned u_value = src[idx] - '0';
-        result += fp_type(u_value) * power;
+        result += fixed_type(u_value) * power;
     }
 
     *this = result;
@@ -48,4 +48,4 @@ fp<TBase, Fractional, TBaseTypeTrait> &
 
 } // namespace bfp
 
-#endif // _BFP_FP_INL_
+#endif // _BFP_FIXED_INL_

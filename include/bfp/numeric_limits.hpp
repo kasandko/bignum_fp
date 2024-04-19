@@ -11,12 +11,12 @@
 #ifndef _BFP_NUMERIC_LIMITS_HPP_
 #define _BFP_NUMERIC_LIMITS_HPP_
 
-#include <bfp/fp.hpp>
+#include <bfp/fixed.hpp>
 
 #ifdef BFP_STD_NUMERIC_LIMITS
     #define BFP_NS std
     #define BFP_ACCESS bfp::
-    #define CLASS_SPECIALIZATION < BFP_ACCESS fp<TBase, Fractional, TBaseTypeTrait> >
+    #define CLASS_SPECIALIZATION < BFP_ACCESS fixed<TBase, Fractional, TBaseTypeTrait> >
 #else
     #define BFP_NS bfp
     #define BFP_ACCESS
@@ -37,7 +37,7 @@ class numeric_limits CLASS_SPECIALIZATION
 {
 public:
 
-    using fp_type = BFP_ACCESS fp<TBase, Fractional, TBaseTypeTrait>;
+    using fixed_type = BFP_ACCESS fixed<TBase, Fractional, TBaseTypeTrait>;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /// # Constants.
@@ -47,7 +47,7 @@ public:
     static constexpr bool is_specialized = true;
 
     
-    static constexpr bool is_signed = fp_type::base_type_trait::limits::is_signed;
+    static constexpr bool is_signed = fixed_type::base_type_trait::limits::is_signed;
     static constexpr bool is_integer = false;
     static constexpr bool is_exact = true;
     static constexpr bool has_infinity = false;
@@ -75,49 +75,49 @@ public:
     static constexpr bool traps = false;
     static constexpr bool tinyness_before = false;
 
-    static fp_type (min)()
+    static fixed_type (min)()
     {
-        return fp_type::create_with_raw(fp_type::base_type_trait::limits::min());
+        return fixed_type::create_with_raw(fixed_type::base_type_trait::limits::min());
     }
 
-    static fp_type lowest()
+    static fixed_type lowest()
     {
         // TODO: Get info about it.
     }
 
-    static fp_type (max)()
+    static fixed_type (max)()
     {
-        return fp_type::create_with_raw(fp_type::base_type_trait::limits::max());
+        return fixed_type::create_with_raw(fixed_type::base_type_trait::limits::max());
     }
 
-    static fp_type epsilon()
+    static fixed_type epsilon()
     {
-        return fp_type::create_with_raw(fp_type::base_type(1));
+        return fixed_type::create_with_raw(fixed_type::base_type(1));
     }
 
-    static fp_type round_error()
+    static fixed_type round_error()
     {
         // TODO: Get info about it.
     }
 
-    static fp_type infinity()
+    static fixed_type infinity()
     {
-        return fp_type(0);
+        return fixed_type(0);
     }
 
-    static fp_type quiet_NaN()
+    static fixed_type quiet_NaN()
     {
-        return fp_type(0);
+        return fixed_type(0);
     }
 
-    static fp_type signaling_NaN()
+    static fixed_type signaling_NaN()
     {
-        return fp_type(0);
+        return fixed_type(0);
     }
 
-    static fp_type denorm_min()
+    static fixed_type denorm_min()
     {
-        return fp_type(0);
+        return fixed_type(0);
     }
 };
 

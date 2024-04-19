@@ -3,7 +3,7 @@
 
 #include <istream>
 #include <ostream>
-#include <bfp/fp.hpp>
+#include <bfp/fixed.hpp>
 
 #ifdef BFP_GLOBAL_STREAM_OVERLOAD
     #define BFP_NS_START
@@ -39,7 +39,7 @@ struct is_valid_ostream
 BFP_NS_START
 
 template<typename S, typename TBase, bfp::LenType Fractional, typename TBaseTypeTrait>
-S & operator >> (S & s, bfp::fp<TBase, Fractional, TBaseTypeTrait> & v)
+S & operator >> (S & s, bfp::fixed<TBase, Fractional, TBaseTypeTrait> & v)
 {
     static_assert(bfp::internal::is_valid_istream<S>::value, "Invalid input stream.");
 
@@ -47,7 +47,7 @@ S & operator >> (S & s, bfp::fp<TBase, Fractional, TBaseTypeTrait> & v)
 }
 
 template<typename S, typename TBase, bfp::LenType Fractional, typename TBaseTypeTrait>
-S & operator << (S & s, const bfp::fp<TBase, Fractional, TBaseTypeTrait> & v)
+S & operator << (S & s, const bfp::fixed<TBase, Fractional, TBaseTypeTrait> & v)
 {
     static_assert(bfp::internal::is_valid_ostream<S>::value, "Invalid output stream.");
 

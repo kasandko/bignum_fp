@@ -1,16 +1,16 @@
-#ifndef _BFP_FP_HPP_
-#define _BFP_FP_HPP_
+#ifndef _BFP_FIXED_HPP_
+#define _BFP_FIXED_HPP_
 
 #include <bfp/type_defs.hpp>
 #include <bfp/default_type_trait.hpp>
-#include <bfp/internal/fp_number.hpp>
+#include <bfp/internal/fixed_number.hpp>
 
 namespace bfp {
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait = default_type_trait<TBase, Fractional> >
-class fp
+class fixed
 {
-    using fp_type = fp<TBase, Fractional, TBaseTypeTrait>;
+    using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
 public:
 
@@ -34,9 +34,9 @@ private:
 
     static_assert(std::is_same_v<TBaseTypeTrait, default_type_trait<TBase, fractional_bit_count> >, "Base type trait is not implemented.");
 
-    friend class bfp::fp;
+    friend class bfp::fixed;
 
-    fp(base_type value, bool)
+    fixed(base_type value, bool)
         : _value(value)
     {
     }
@@ -45,90 +45,90 @@ public:
 
     ///// Constructors /////
 
-    static fp_type create_with_raw(const base_type & value)
+    static fixed_type create_with_raw(const base_type & value)
     {
-        return fp_type(value, false);
+        return fixed_type(value, false);
     }
 
-    fp()
+    fixed()
         : _value()
     {
     }
 
     template<typename T>
-    fp(T value)
+    fixed(T value)
         : _value(base_type(value) << fractional_bit_count)
     {
         static_assert(std::is_convertible_v<T, base_type>, "Can not convert from T to base type.");
     }
 
-    fp(bool value)
-        : fp(static_cast<int>(value))
+    fixed(bool value)
+        : fixed(static_cast<int>(value))
     {
     }
 
-    fp(float value)
+    fixed(float value)
         : _value(base_type_trait::methods::from_float(value))
     {
     }
 
-    fp(double value)
+    fixed(double value)
         : _value(base_type_trait::methods::from_double(value))
     {
     }
 
-    fp(long double value)
+    fixed(long double value)
         : _value(base_type_trait::methods::from_long_double(value))
     {
     }
 
-    fp(const fp_type & rhs)
+    fixed(const fixed_type & rhs)
         : _value(rhs._value)
     {
     }
 
     template<LenType OtherFractional>
-    fp(const fp<base_type, OtherFractional, base_type_trait> & rhs)
+    fixed(const fixed<base_type, OtherFractional, base_type_trait> & rhs)
         : _value(rhs._value)
     {
-        using other_fp_type = typename fp<base_type, OtherFractional, base_type_trait>;
-        if (integer_bit_count - other_fp_type::integer_bit_count > 0)
-            _value >>= integer_bit_count - other_fp_type::integer_bit_count;
-        if (other_fp_type::integer_bit_count - integer_bit_count > 0)
-            _value <<= other_fp_type::integer_bit_count - integer_bit_count;
+        using other_fixed_type = typename fixed<base_type, OtherFractional, base_type_trait>;
+        if (integer_bit_count - other_fixed_type::integer_bit_count > 0)
+            _value >>= integer_bit_count - other_fixed_type::integer_bit_count;
+        if (other_fixed_type::integer_bit_count - integer_bit_count > 0)
+            _value <<= other_fixed_type::integer_bit_count - integer_bit_count;
     }
     
 
     ///// Operators /////
 
-    fp_type & operator = (const fp_type & rhs)
+    fixed_type & operator = (const fixed_type & rhs)
     {
         _value = rhs._value;
         return *this;
     }
 
     template<LenType OtherFractional>
-    fp_type & operator = (const fp<base_type, OtherFractional, base_type_trait> & rhs)
+    fixed_type & operator = (const fixed<base_type, OtherFractional, base_type_trait> & rhs)
     {
-        fp_type temp(rhs);
+        fixed_type temp(rhs);
         _value = temp._value;
         return *this;
     }
 
-    fp_type & operator = (const internal::fp_number & fp_number);
+    fixed_type & operator = (const internal::fixed_number & fixed_number);
 
-    bool operator < (const fp_type & rhs) const
+    bool operator < (const fixed_type & rhs) const
     {
         return _value < rhs._value;
     }
 
-    bool operator == (fp_type const& rhs) const
+    bool operator == (fixed_type const& rhs) const
     {
         return _value == rhs._value;
     }
 
     #undef BFP_COMP_OP
-    #define BFP_COMP_OP(OP) bool operator##OP (fp_type const& rhs) const { return std::rel_ops::operator##OP (*this, rhs); }
+    #define BFP_COMP_OP(OP) bool operator##OP (fixed_type const& rhs) const { return std::rel_ops::operator##OP (*this, rhs); }
 
     BFP_COMP_OP(!=)
     BFP_COMP_OP(<=)
@@ -142,113 +142,113 @@ public:
         return _value == 0;
     }
 
-    fp_type operator - () const
+    fixed_type operator - () const
     {
-        fp_type result;
+        fixed_type result;
         result._value = -_value;
         return result;
     }
 
-    fp_type & operator ++ ()
+    fixed_type & operator ++ ()
     {
         _value += BASE_TYPE_ONE;
         return *this;
     }
 
-    fp_type & operator ++ (int)
+    fixed_type & operator ++ (int)
     {
-        fp_type old;
+        fixed_type old;
         ++(*this);
         return old;
     }
 
-    fp_type & operator -- ()
+    fixed_type & operator -- ()
     {
         _value -= BASE_TYPE_ONE;
         return *this;
     }
 
-    fp_type & operator -- (int)
+    fixed_type & operator -- (int)
     {
-        fp_type old;
+        fixed_type old;
         --(*this);
         return old;
     }
 
-    fp_type & operator += (const fp_type & summand)
+    fixed_type & operator += (const fixed_type & summand)
     {
         _value += summand._value;
         return *this;
     }
 
-    fp_type operator + (const fp_type & summand)
+    fixed_type operator + (const fixed_type & summand)
     {
-        fp_type result(*this);
+        fixed_type result(*this);
         result += summand;
         return result;
     }
 
-    fp_type & operator -= (const fp_type & diminuend)
+    fixed_type & operator -= (const fixed_type & diminuend)
     {
         _value -= diminuend._value;
         return *this;
     }
 
-    fp_type operator - (const fp_type & diminuend)
+    fixed_type operator - (const fixed_type & diminuend)
     {
-        fp_type result(*this);
+        fixed_type result(*this);
         result -= diminuend;
         return result;
     }
 
-    fp_type & operator *= (const fp_type & factor)
+    fixed_type & operator *= (const fixed_type & factor)
     {
         _value((base_type_trait::promotion_type(_value) * factor._value) >> fractional_bit_count);
         return *this;
     }
 
-    fp_type operator * (const fp_type & factor)
+    fixed_type operator * (const fixed_type & factor)
     {
-        fp_type result(*this);
+        fixed_type result(*this);
         result *= factor;
         return result;
     }
 
-    fp_type & operator /= (const fp_type & divisor)
+    fixed_type & operator /= (const fixed_type & divisor)
     {
         _value((base_type_trait::promotion_type(_value) << fractional_bit_count) / divisor._value);
         return *this;
     }
 
-    fp_type operator / (const fp_type & divisor)
+    fixed_type operator / (const fixed_type & divisor)
     {
-        fp_type result(*this);
+        fixed_type result(*this);
         result /= divisor;
         return result;
     }
 
-    fp_type & operator >>= (size_t shift)
+    fixed_type & operator >>= (size_t shift)
     {
         _value >>= shift;
         return *this;
     }
 
-    fp_type operator >> (size_t shift)
+    fixed_type operator >> (size_t shift)
     {
-        fp_type result(*this);
+        fixed_type result(*this);
         result >>= shift;
         return result;
     }
 
-    fp_type & operator <<= (size_t shift)
+    fixed_type & operator <<= (size_t shift)
     {
         _value <<= shift;
         return *this;
     }
 
-    fp_type operator << (size_t shift)
+    fixed_type operator << (size_t shift)
     {
-        fp_type result(*this);
+        fixed_type result(*this);
         result <<= shift;
         return result;
     }
@@ -298,7 +298,7 @@ public:
         _value = -_value;
     }
 
-    void swap(fp_type & rhs)
+    void swap(fixed_type & rhs)
     {
         base_type_trait::methods::swap(_value, rhs._value);
     }
@@ -330,6 +330,6 @@ private:
 
 } // namespace bfp
 
-#include <bfp/internal/fp.inl>
+#include <bfp/internal/fixed.inl>
 
-#endif // _BFP_FP_HPP_
+#endif // _BFP_FIXED_HPP_

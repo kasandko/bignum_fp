@@ -1,5 +1,5 @@
-#ifndef _BFP_FP_NUMBER_HPP_
-#define _BFP_FP_NUMBER_HPP_
+#ifndef _BFP_FIXED_NUMBER_HPP_
+#define _BFP_FIXED_NUMBER_HPP_
 
 #include <string>
 
@@ -9,9 +9,9 @@
 
 namespace bfp::internal {
 
-class fp_number
+class fixed_number
 {
-    friend fp_number operator "" _fp_number(const char* str, size_t size);
+    friend fixed_number operator "" _fixed_number(const char* str, size_t size);
 
 public:
 
@@ -21,9 +21,9 @@ public:
 
 private:
 
-    fp_number() = delete;
+    fixed_number() = delete;
 
-    fp_number(const std::string & str, size_t point_pos)
+    fixed_number(const std::string & str, size_t point_pos)
         : _str(str)
         , _point_pos(point_pos)
     {
@@ -45,7 +45,7 @@ constexpr size_t _find_point_pos(const char* str, size_t size)
     return size;
 }
 
-fp_number operator "" _fp_number(const char* str, size_t size)
+fixed_number operator "" _fixed_number(const char* str, size_t size)
 {
     const size_t point_pos = _find_point_pos(str, size);
     return {{str, point_pos + BFP_MATHEMATICAL_CONSTANTS_PRECISION}, point_pos};
@@ -53,4 +53,4 @@ fp_number operator "" _fp_number(const char* str, size_t size)
 
 } // namespace bfp::internal
 
-#endif // _BFP_FP_NUMBER_HPP_
+#endif // _BFP_FIXED_NUMBER_HPP_
