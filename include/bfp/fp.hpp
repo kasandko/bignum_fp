@@ -24,24 +24,18 @@ public:
     // The integer part bit count.
     static constexpr LenType integer_bit_count = sizeof (base_type) - fractional_bit_count;
 
-    // #assert:1.
     static const base_type BASE_TYPE_ONE = base_type(1) << fractional_bit_count;
 
-    // #assert:2.
     static const base_type FRACTIONAL_MASK = BASE_TYPE_ONE - 1;
 
-    // #assert:3.
     static const base_type INTEGER_MASK = ~FRACTIONAL_MASK;
 
 private:
-
-    using _dummy = base_type_asserts<base_type, base_type_trait::promotion_type>;
 
     static_assert(std::is_same_v<TBaseTypeTrait, default_type_trait<TBase, fractional_bit_count> >, "Base type trait is not implemented.");
 
     friend class bfp::fp;
 
-    // #assert:6.
     fp(base_type value, bool)
         : _value(value)
     {
@@ -61,7 +55,6 @@ public:
     {
     }
 
-    // #assert:1.
     template<typename T>
     fp(T value)
         : _value(base_type(value) << fractional_bit_count)
@@ -74,31 +67,26 @@ public:
     {
     }
 
-    // #assert:6.
     fp(float value)
         : _value(base_type_trait::methods::from_float(value))
     {
     }
 
-    // #assert:6.
     fp(double value)
         : _value(base_type_trait::methods::from_double(value))
     {
     }
 
-    // #assert:6.
     fp(long double value)
         : _value(base_type_trait::methods::from_long_double(value))
     {
     }
 
-    // #assert:6.
     fp(const fp_type & rhs)
         : _value(rhs._value)
     {
     }
 
-    // #assert:4, #assert:5, #assert:6.
     template<LenType OtherFractional>
     fp(const fp<base_type, OtherFractional, base_type_trait> & rhs)
         : _value(rhs._value)
@@ -113,14 +101,12 @@ public:
 
     ///// Operators /////
 
-    // #assert:7.
     fp_type & operator = (const fp_type & rhs)
     {
         _value = rhs._value;
         return *this;
     }
 
-    // #assert:6, #assert:7.
     template<LenType OtherFractional>
     fp_type & operator = (const fp<base_type, OtherFractional, base_type_trait> & rhs)
     {
@@ -131,13 +117,11 @@ public:
 
     fp_type & operator = (const internal::fp_number & fp_number);
 
-    // #assert:8.
     bool operator < (const fp_type & rhs) const
     {
         return _value < rhs._value;
     }
 
-    // #assert:9.
     bool operator == (fp_type const& rhs) const
     {
         return _value == rhs._value;
@@ -153,26 +137,18 @@ public:
 
     #undef BFP_COMP_OP
 
-    // #assert:10.
     bool operator ! () const
     {
         return _value == 0;
     }
 
-    // #assert:7, #assert:11.
     fp_type operator - () const
     {
         fp_type result;
-
-        if constexpr (std::is_signed_v<base_type>)
-            result._value = -_value;
-        else
-            result._value = _value;
-
+        result._value = -_value;
         return result;
     }
 
-    // #assert:12.
     fp_type & operator ++ ()
     {
         _value += BASE_TYPE_ONE;
@@ -186,7 +162,6 @@ public:
         return old;
     }
 
-    // #assert:13.
     fp_type & operator -- ()
     {
         _value -= BASE_TYPE_ONE;
@@ -200,7 +175,6 @@ public:
         return old;
     }
 
-    // #assert:12.
     fp_type & operator += (const fp_type & summand)
     {
         _value += summand._value;
@@ -214,7 +188,6 @@ public:
         return result;
     }
 
-    // #assert:13.
     fp_type & operator -= (const fp_type & diminuend)
     {
         _value -= diminuend._value;
@@ -228,7 +201,6 @@ public:
         return result;
     }
 
-    // #assert:14, #assert:15, #assert:16, #assert:17.
     fp_type & operator *= (const fp_type & factor)
     {
         _value((base_type_trait::promotion_type(_value) * factor._value) >> fractional_bit_count);
@@ -242,7 +214,6 @@ public:
         return result;
     }
 
-    // #assert:14, #assert:17, #assert:18, #assert:19,.
     fp_type & operator /= (const fp_type & divisor)
     {
         _value((base_type_trait::promotion_type(_value) << fractional_bit_count) / divisor._value);
@@ -256,7 +227,6 @@ public:
         return result;
     }
 
-    // #assert:4.
     fp_type & operator >>= (size_t shift)
     {
         _value >>= shift;
@@ -270,7 +240,6 @@ public:
         return result;
     }
 
-    // #assert:5.
     fp_type & operator <<= (size_t shift)
     {
         _value <<= shift;
@@ -289,7 +258,6 @@ public:
     #undef BFP_INTEGER_CONVERT
     #define BFP_INTEGER_CONVERT(TYPE) operator TYPE () const { return static_cast<TYPE>(_value >> fractional_bit_count); }
 
-    // #assert:20.
     BFP_INTEGER_CONVERT(char)
     BFP_INTEGER_CONVERT(wchar_t)
     BFP_INTEGER_CONVERT(int8_t)
@@ -303,7 +271,6 @@ public:
 
     #undef BFP_INTEGER_CONVERT
 
-    // #assert:21
     operator bool () const
     {
         return static_cast<bool>(_value);
@@ -326,18 +293,21 @@ public:
 
     ///// Methods /////
 
+    void flip_sgn()
+    {
+        _value = -_value;
+    }
+
     void swap(fp_type & rhs)
     {
         base_type_trait::methods::swap(_value, rhs._value);
     }
 
-    // #assert:22.
     base_type integer() const
     {
         return _value >> fractional_bit_count;
     }
 
-    // #assert:23.
     base_type fract() const
     {
         return _value & INTEGER_MASK;

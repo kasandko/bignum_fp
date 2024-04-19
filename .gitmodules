@@ -1,3 +1,0 @@
-[submodule "ext/ex_type_traits"]
-	path = ext/ex_type_traits
-	url = git@github.com:kasandko/ex_type_traits.git

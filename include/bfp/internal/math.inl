@@ -59,14 +59,29 @@ fp<TBase, Fractional, TBaseTypeTrait> remainder(
         return 0;
     }
 
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    const fp_type r = x / y;
+    const bool sgn = r > internal::ZERO_VALUE<TBase, Fractional, TBaseTypeTrait>;
 
-    /*
-    const fp_type p_rem = fmod(x, y);
-    const fp_type n_rem = y - p_rem;
-    return p_rem >= n_rem ? p_rem : -n_rem;
-    */
+    fp_type int_r = r;
+    int_r.data() &= fp_type::INTEGER_MASK;
+
+    fp_type next_int_r = int_r;
+    if (sgn)
+        next_int_r.data() += fp_type::BASE_TYPE_ONE;
+    else
+        next_int_r.data() -= fp_type::BASE_TYPE_ONE;
+
+    fp_type k1 = next_int_r - r;
+    fp_type k2 = r - int_r;
+
+    if (!sgn)
+    {
+        k1.flip_sgn();
+        k2.flip_sgn();
+    }
+
+    const fp_type nearest = k1 < k2 ? next_int_r : int_r;
+    return x - nearest * y;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>

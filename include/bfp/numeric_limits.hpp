@@ -90,7 +90,6 @@ public:
         return fp_type::create_with_raw(fp_type::base_type_trait::limits::max());
     }
 
-    // #assert:24
     static fp_type epsilon()
     {
         return fp_type::create_with_raw(fp_type::base_type(1));
