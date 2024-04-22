@@ -1,3 +1,11 @@
+/**************************************************************************************************
+ * @file
+ * @author Konovalov Aleksander
+ * @copyright This file is part of library bignum_fp and has the same license. @see LICENSE.txt
+ * @brief 
+ *
+ *************************************************************************************************/
+
 #ifndef _BFP_FIXED_INL_
 #define _BFP_FIXED_INL_
 

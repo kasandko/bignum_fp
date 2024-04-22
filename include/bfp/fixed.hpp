@@ -1,3 +1,11 @@
+/**************************************************************************************************
+ * @file
+ * @author Konovalov Aleksander
+ * @copyright This file is part of library bignum_fp and has the same license. @see LICENSE.txt
+ * @brief 
+ *
+ *************************************************************************************************/
+
 #ifndef _BFP_FIXED_HPP_
 #define _BFP_FIXED_HPP_
 
@@ -43,7 +51,9 @@ private:
 
 public:
 
-    ///// Constructors /////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// # Constructors.
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     static fixed_type create_with_raw(const base_type & value)
     {
@@ -98,8 +108,9 @@ public:
             _value <<= other_fixed_type::integer_bit_count - integer_bit_count;
     }
     
-
-    ///// Operators /////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// # Operators.
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     fixed_type & operator = (const fixed_type & rhs)
     {
@@ -253,7 +264,9 @@ public:
         return result;
     }
 
-    ///// Convertations /////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// # Convertations.
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     #undef BFP_INTEGER_CONVERT
     #define BFP_INTEGER_CONVERT(TYPE) operator TYPE () const { return static_cast<TYPE>(_value >> fractional_bit_count); }
@@ -291,7 +304,9 @@ public:
         return base_type_trait::methods::to_long_double(_value);
     }
 
-    ///// Methods /////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// # Methods.
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     void flip_sgn()
     {

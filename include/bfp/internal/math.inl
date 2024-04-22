@@ -1,3 +1,11 @@
+/**************************************************************************************************
+ * @file
+ * @author Konovalov Aleksander
+ * @copyright This file is part of library bignum_fp and has the same license. @see LICENSE.txt
+ * @brief 
+ *
+ *************************************************************************************************/
+
 #ifndef _BFP_MATH_INL_
 #define _BFP_MATH_INL_
 
@@ -9,11 +17,6 @@
 namespace bfp {
 
 namespace internal {
-
-#undef _BFP_NOT_IMPLEMENTED_ASSERT
-#define _BFP_NOT_IMPLEMENTED_ASSERT                 \
-    assert("Not implemented.");                     \
-    return {}
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
 inline const fixed<TBase, Fractional, TBaseTypeTrait> ZERO_VALUE = 0;

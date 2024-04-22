@@ -1,5 +1,7 @@
 /**************************************************************************************************
  * @file
+ * @author Konovalov Aleksander
+ * @copyright This file is part of library bignum_fp and has the same license. @see LICENSE.txt
  * @brief This file implements `std::numbers` analog for `fp`.
  * 
  * It contain class `numbers` which is compatible with `std::numbers`, but it can not be located

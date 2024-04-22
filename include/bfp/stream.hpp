@@ -1,3 +1,11 @@
+/**************************************************************************************************
+ * @file
+ * @author Konovalov Aleksander
+ * @copyright This file is part of library bignum_fp and has the same license. @see LICENSE.txt
+ * @brief 
+ *
+ *************************************************************************************************/
+
 #ifndef _BFP_STREAM_HPP_
 #define _BFP_STREAM_HPP_
 
@@ -43,6 +51,7 @@ S & operator >> (S & s, bfp::fixed<TBase, Fractional, TBaseTypeTrait> & v)
 {
     static_assert(bfp::internal::is_valid_istream<S>::value, "Invalid input stream.");
 
+    _BFP_NOT_IMPLEMENTED_ASSERT
     // TODO: Implementation.
 }
 
@@ -51,6 +60,7 @@ S & operator << (S & s, const bfp::fixed<TBase, Fractional, TBaseTypeTrait> & v)
 {
     static_assert(bfp::internal::is_valid_ostream<S>::value, "Invalid output stream.");
 
+    _BFP_NOT_IMPLEMENTED_ASSERT
     // TODO: Implementation.
 }
 

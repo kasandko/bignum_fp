@@ -1,6 +1,8 @@
 /**************************************************************************************************
  * @file
- * @brief This file implements mathematical functions for `fp`.
+ * @author Konovalov Aleksander
+ * @copyright This file is part of library bignum_fp and has the same license. @see LICENSE.txt
+ * @brief This file implements mathematical functions for `fixed`.
  * 
  *************************************************************************************************/
 
