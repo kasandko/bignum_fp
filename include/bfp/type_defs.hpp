@@ -17,12 +17,17 @@ namespace bfp {
 /// @brief The type represeting base type size, fractional part size and integer part size.
 using LenType = int16_t;
 
-/// @brief The preprocessor macro for mark libraries methods and functions which are not
+/// @brief The preprocessor macros for mark libraries methods and functions which are not
 /// implemented yet.
 #undef _BFP_NOT_IMPLEMENTED_ASSERT
 #define _BFP_NOT_IMPLEMENTED_ASSERT                 \
     assert("Not implemented.");                     \
     return {};
+
+#undef _BFP_NOT_IMPLEMENTED_ASSERT_V
+#define _BFP_NOT_IMPLEMENTED_ASSERT_V               \
+    assert("Not implemented.");                     \
+    return;
 
 } // namespace bfp
 
