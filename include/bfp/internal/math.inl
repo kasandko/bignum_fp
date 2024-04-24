@@ -96,8 +96,11 @@ fixed<TBase, Fractional, TBaseTypeTrait> remquo(
 {
     using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    const fixed_type rem = remainder(x, y);
+    const fixed_type f_quo = x / y;
+    quo = static_cast<int>(f_quo.data());
+
+    return rem;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -107,10 +110,7 @@ fixed<TBase, Fractional, TBaseTypeTrait> fma(
     const fixed<TBase, Fractional, TBaseTypeTrait> & z
 )
 {
-    using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
-
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return x * y + z;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -147,10 +147,7 @@ fixed<TBase, Fractional, TBaseTypeTrait> lerp(
     const fixed<TBase, Fractional, TBaseTypeTrait> & t
 )
 {
-    using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
-
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return a + t * (b - a);
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
