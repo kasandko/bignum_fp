@@ -10,7 +10,7 @@
 #define _BFP_FIXED_HPP_
 
 #include <bfp/type_defs.hpp>
-#include <bfp/internal/fixed_number.hpp>
+#include <bfp/internal/literal.inl>
 
 namespace bfp {
 
@@ -58,6 +58,10 @@ private:
         : _value(value)
     {
     }
+
+    /// @brief 
+    /// @param fixed_number_provider 
+    static fixed_type make_from_literal(const internal::fixed_literal_provider & fixed_number_provider);
 
 public:
 
@@ -137,6 +141,11 @@ public:
         if (other_fixed_type::integer_bit_count - integer_bit_count > 0)
             _value <<= other_fixed_type::integer_bit_count - integer_bit_count;
     }
+
+    fixed(const internal::fixed_literal_provider & fixed_number_provider)
+        : _value(make_from_literal(fixed_number_provider)._value)
+    {
+    }
     
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /// # Operators.
@@ -164,9 +173,14 @@ public:
     }
 
     /// @brief 
-    /// @param fixed_number 
+    /// @param fixed_number_provider 
     /// @return 
-    fixed_type & operator = (const internal::fixed_number & fixed_number);
+    fixed_type & operator = (const internal::fixed_literal_provider & fixed_number_provider)
+    {
+        fixed_type temp = make_from_literal(fixed_number_provider);
+        _value = temp._value;
+        return *this;
+    }
 
     /// @brief 
     /// @param rhs 

@@ -154,7 +154,7 @@ public:
 
     /// @brief 
     ///
-    /// @todo 
+    ///
     static constexpr int max_exponent = fixed_type::integer_bit_count - 1;
 
     /// @brief 
@@ -182,7 +182,7 @@ public:
 
     /// @brief 
     ///
-    /// @todo 
+    ///
     /// @return
     static fixed_type lowest()
     {

@@ -14,13 +14,14 @@
 namespace bfp {
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
-fixed<TBase, Fractional, TBaseTypeTrait> &
-    fixed<TBase, Fractional, TBaseTypeTrait>::operator = (const internal::fixed_number & fixed_number)
+fixed<TBase, Fractional, TBaseTypeTrait>
+fixed<TBase, Fractional, TBaseTypeTrait>::make_from_literal(
+    const internal::fixed_literal_provider & fixed_number_provider)
 {
     using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
-    const std::string src = fixed_number._get_str();
-    const size_t point_pos = fixed_number._point_pos();
+    const std::string src = fixed_number_provider.get_str();
+    const size_t point_pos = fixed_number_provider.get_point_pos();
 
     const fixed_type pow_factor(10);
 
@@ -50,8 +51,7 @@ fixed<TBase, Fractional, TBaseTypeTrait> &
         result += fixed_type(u_value) * power;
     }
 
-    *this = result;
-    return *this;
+    return result;
 }
 
 } // namespace bfp
