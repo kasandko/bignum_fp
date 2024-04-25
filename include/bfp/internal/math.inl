@@ -24,6 +24,9 @@ inline const fixed<TBase, Fractional, TBaseTypeTrait> ZERO_VALUE = 0;
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
 inline const fixed<TBase, Fractional, TBaseTypeTrait> ONE_VALUE = 1;
 
+template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
+inline const fixed<TBase, Fractional, TBaseTypeTrait> HALF_ONE_VALUE = 0.5;
+
 } // namespace internal
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -452,8 +455,9 @@ fixed<TBase, Fractional, TBaseTypeTrait> trunc(const fixed<TBase, Fractional, TB
 {
     using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    fixed_type result(num);
+    result.data() &= fixed_type::INTEGER_MASK;
+    return result;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -461,8 +465,14 @@ fixed<TBase, Fractional, TBaseTypeTrait> round(const fixed<TBase, Fractional, TB
 {
     using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    fixed_type integer;
+    const fixed_type fract = fabs(modf(num, &integer));
+    if (fract < internal::HALF_ONE_VALUE)
+        return integer;
+
+    return num >= internal::ZERO_VALUE
+        ? ++integer
+        : --integer;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -555,9 +565,11 @@ fixed<TBase, Fractional, TBaseTypeTrait> modf(
 
     fixed_type integer;
     integer.data() = num.data() & fixed_type::INTEGER_MASK;
-    *iptr = less_zero
-        ? integer + internal::ONE_VALUE<TBase, Fractional, TBaseTypeTrait>
-        : integer;
+
+    if (less_zero)
+        ++integer;
+
+    *iptr = integer;
 
     fixed_type fraction;
     fraction.data() = num.data() & fixed_type::FRACTIONAL_MASK;
