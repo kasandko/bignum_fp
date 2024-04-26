@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cerrno>
 #include <cfenv>
+#include <limits>
 
 namespace bfp {
 
@@ -26,6 +27,29 @@ inline const fixed<TBase, Fractional, TBaseTypeTrait> ONE_VALUE = 1;
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
 inline const fixed<TBase, Fractional, TBaseTypeTrait> HALF_ONE_VALUE = 0.5;
+
+template <typename TIntResult, typename TBase, LenType Fractional, typename TBaseTypeTrait>
+TIntResult _round(const fixed<TBase, Fractional, TBaseTypeTrait> & num)
+{
+    using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
+
+    fixed_type result = round(num);
+    fixed_type::base_type & base_result = result.data();
+    base_result >>= fixed_type::fractional_bit_count;
+    if (std::numeric_limits<TIntResult>::digits >= fixed_type::base_type_trait::limits::digits)
+        return static_cast<TIntResult>(base_result);
+
+    const fixed_type::base_type max_int =
+        static_cast<fixed_type::base_type>(std::numeric_limits<TIntResult>::max());
+    
+    if (base_result > max_int)
+    {
+        errno = EDOM;
+        std::feraiseexcept(FE_INVALID);
+    }
+
+    return static_cast<TIntResult>(base_result);
+}
 
 } // namespace internal
 
@@ -73,9 +97,9 @@ fixed<TBase, Fractional, TBaseTypeTrait> remainder(
 
     fixed_type next_int_r = int_r;
     if (sgn)
-        next_int_r.data() += fixed_type::BASE_TYPE_ONE;
+        ++next_int_r;
     else
-        next_int_r.data() -= fixed_type::BASE_TYPE_ONE;
+        --next_int_r;
 
     fixed_type k1 = next_int_r - r;
     fixed_type k2 = r - int_r;
@@ -437,7 +461,10 @@ fixed<TBase, Fractional, TBaseTypeTrait> ceil(const fixed<TBase, Fractional, TBa
 
     fixed_type result;
     result.data() = num.data() & fixed_type::INTEGER_MASK;
-    return result + fixed_type(num.data() & fixed_type::FRACTIONAL_MASK ? 1 : 0);
+    if (num.fract() > 0 && num > internal::ZERO_VALUE)
+        ++result;
+
+    return result;
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -447,6 +474,9 @@ fixed<TBase, Fractional, TBaseTypeTrait> floor(const fixed<TBase, Fractional, TB
 
     fixed_type result;
     result.data() = num.data() & fixed_type::INTEGER_MASK;
+    if (num.fract() > 0 && num < internal::ZERO_VALUE)
+        --result;
+
     return result;
 }
 
@@ -455,8 +485,8 @@ fixed<TBase, Fractional, TBaseTypeTrait> trunc(const fixed<TBase, Fractional, TB
 {
     using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
-    fixed_type result(num);
-    result.data() &= fixed_type::INTEGER_MASK;
+    fixed_type result;
+    result.data() = num.data() & fixed_type::INTEGER_MASK;
     return result;
 }
 
@@ -478,19 +508,13 @@ fixed<TBase, Fractional, TBaseTypeTrait> round(const fixed<TBase, Fractional, TB
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
 long lround(const fixed<TBase, Fractional, TBaseTypeTrait> & num)
 {
-    using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
-
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return internal::_round<long>(num);
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
 long long llround(const fixed<TBase, Fractional, TBaseTypeTrait> & num)
 {
-    using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
-
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    return internal::_round<long long>(num);
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -498,8 +522,20 @@ fixed<TBase, Fractional, TBaseTypeTrait> nearbyint(const fixed<TBase, Fractional
 {
     using fixed_type = fixed<TBase, Fractional, TBaseTypeTrait>;
 
-    // TODO: Implementation.
-    _BFP_NOT_IMPLEMENTED_ASSERT
+    const int round_type = std::fegetround();
+    switch (round_type)
+    {
+    case FE_DOWNWARD:
+        return floor(num);
+    case FE_TONEAREST:
+        return round(num);
+    case FE_TOWARDZERO:
+        return trunc(num);
+    case FE_UPWARD:
+        return ceil(num);
+    default:
+        return fixed_type();
+    }
 }
 
 template <typename TBase, LenType Fractional, typename TBaseTypeTrait>
@@ -572,7 +608,7 @@ fixed<TBase, Fractional, TBaseTypeTrait> modf(
     *iptr = integer;
 
     fixed_type fraction;
-    fraction.data() = num.data() & fixed_type::FRACTIONAL_MASK;
+    fraction.data() = num.fract();
 
     return less_zero ? -fraction : fraction;
 }
