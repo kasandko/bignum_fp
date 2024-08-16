@@ -25,7 +25,7 @@ struct integral_checker
     using base_type = TBase;
 
     /// @brief
-    static constexpr is_valid_base_type_v =
+    static constexpr bool is_valid_base_type_v =
         std::is_same_v<base_type, int8_t> ||
         std::is_same_v<base_type, int16_t> ||
         std::is_same_v<base_type, int32_t>;
@@ -159,17 +159,15 @@ public:
 
 /// @brief 
 /// @tparam TBase 
-template <typename TBase>
+/// @tparam TChecker 
+template <typename TBase, typename TChecker>
 class integral_type_promoter
 {
 private:
 
-    inline static constexpr bool is_valid_base_v =
-        std::is_same_v<TBase, int8_t> ||
-        std::is_same_v<TBase, int16_t> ||
-        std::is_same_v<TBase, int32_t>;
+    inline static constexpr bool is_valid_base_type_v = TChecker::is_valid_base_type_v;
 
-    static_assert(!is_valid_base_v, "Promote type is not specialized for specified base type.");
+    static_assert(is_valid_base_type_v, "Promote type is not specialized for specified base type.");
 
     struct InvalidType { };
     template<typename T, typename U = void> struct promote_type { using type = InvalidType; };
@@ -205,10 +203,10 @@ struct integral_type_trait
     using methods = integral_methods<base_type, Fractional>;
 
     /// @brief 
-    using promotion_type = typename integral_type_promoter<base_type>::type;
+    using promotion_type = typename integral_type_promoter<base_type, checker>::type;
 
     /// @brief 
-    using promotion_limits = typename integral_type_promoter<base_type>::limits;
+    using promotion_limits = typename integral_type_promoter<base_type, checker>::limits;
 };
 
 } // namespace bfp
