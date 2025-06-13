@@ -236,9 +236,9 @@ public:
 
     /// @brief 
     /// @return 
-    fixed_type & operator ++ (int)
+    fixed_type operator ++ (int)
     {
-        fixed_type old;
+        fixed_type old = *this;
         ++(*this);
         return old;
     }
@@ -253,9 +253,9 @@ public:
 
     /// @brief 
     /// @return 
-    fixed_type & operator -- (int)
+    fixed_type operator -- (int)
     {
-        fixed_type old;
+        fixed_type old = *this;
         --(*this);
         return old;
     }
